@@ -2,17 +2,15 @@
 
 ## [1.0.4](https://github.com/awesome-directories/cli/compare/v1.0.3...v1.0.4) (2025-11-20)
 
-
 ### Bug Fixes
 
-* **CI:** install syft ([f9c6f85](https://github.com/awesome-directories/cli/commit/f9c6f8551ac7e0b43ffd0833a18733223ecf24e2))
+- **CI:** install syft ([f9c6f85](https://github.com/awesome-directories/cli/commit/f9c6f8551ac7e0b43ffd0833a18733223ecf24e2))
 
 ## [1.0.3](https://github.com/awesome-directories/cli/compare/v1.0.2...v1.0.3) (2025-11-20)
 
-
 ### Bug Fixes
 
-* **CI:** install cosign first ([543ad65](https://github.com/awesome-directories/cli/commit/543ad658a0694cc8edcf3de19f339bddc036a583))
+- **CI:** install cosign first ([543ad65](https://github.com/awesome-directories/cli/commit/543ad658a0694cc8edcf3de19f339bddc036a583))
 
 ## [1.0.2](https://github.com/awesome-directories/cli/compare/v1.0.1...v1.0.2) (2025-11-20)
 
