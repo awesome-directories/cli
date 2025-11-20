@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.8](https://github.com/awesome-directories/cli/compare/v1.0.7...v1.0.8) (2025-11-20)
+
+
+### Bug Fixes
+
+* **CI:** publish to formulae ([acb702f](https://github.com/awesome-directories/cli/commit/acb702ffa2bde0b61196414cd88239db551a36a3))
+
 ## [1.0.7](https://github.com/awesome-directories/cli/compare/v1.0.6...v1.0.7) (2025-11-20)
 
 
