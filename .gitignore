@@ -36,6 +36,9 @@ dist/
 # Cache and config (for testing)
 .config/
 cache/
+!internal/cache/
+!cmd/
+!cmd/awesome-directories/
 
 # Environment
 .env
