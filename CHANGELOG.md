@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.7](https://github.com/awesome-directories/cli/compare/v1.0.6...v1.0.7) (2025-11-20)
+
+
+### Bug Fixes
+
+* **CI:** change dir ([0193062](https://github.com/awesome-directories/cli/commit/0193062556b23e1ac51e2432587613d274cac04d))
+
 ## [1.0.6](https://github.com/awesome-directories/cli/compare/v1.0.5...v1.0.6) (2025-11-20)
 
 
