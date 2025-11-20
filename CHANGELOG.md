@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/awesome-directories/cli/compare/v1.0.3...v1.0.4) (2025-11-20)
+
+
+### Bug Fixes
+
+* **CI:** install syft ([f9c6f85](https://github.com/awesome-directories/cli/commit/f9c6f8551ac7e0b43ffd0833a18733223ecf24e2))
+
 ## [1.0.3](https://github.com/awesome-directories/cli/compare/v1.0.2...v1.0.3) (2025-11-20)
 
 
