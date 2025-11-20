@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/awesome-directories/cli/compare/v1.0.2...v1.0.3) (2025-11-20)
+
+
+### Bug Fixes
+
+* **CI:** install cosign first ([543ad65](https://github.com/awesome-directories/cli/commit/543ad658a0694cc8edcf3de19f339bddc036a583))
+
 ## [1.0.2](https://github.com/awesome-directories/cli/compare/v1.0.1...v1.0.2) (2025-11-20)
 
 ### Bug Fixes
