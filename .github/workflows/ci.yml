@@ -100,6 +100,7 @@ jobs:
       - name: Setup Cosign CLI
         uses: sigstore/cosign-installer@v3
       - name: Install syft
+        working-directory: /tmp
         run: |
           wget https://github.com/anchore/syft/releases/download/v1.38.0/syft_1.38.0_linux_amd64.tar.gz
           tar -xzf syft_1.38.0_linux_amd64.tar.gz syft
