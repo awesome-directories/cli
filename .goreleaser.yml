@@ -1,0 +1,163 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+
+version: 2
+
+before:
+  hooks:
+    - go mod download
+    - go mod tidy
+    - mkdir -p completions
+    - go run ./cmd/awesome-directories completion bash > completions/awesome-directories.bash
+    - go run ./cmd/awesome-directories completion zsh > completions/awesome-directories.zsh
+    - go run ./cmd/awesome-directories completion fish > completions/awesome-directories.fish
+
+builds:
+  - main: ./cmd/awesome-directories
+    binary: awesome-directories
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+      - arm
+    goarm:
+      - "6"
+      - "7"
+    ignore:
+      - goos: windows
+        goarch: arm
+      - goos: windows
+        goarch: arm64
+    ldflags:
+      - -s -w
+      - -extldflags '-static'
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+      - -X main.builtBy=goreleaser
+      - -X github.com/awesome-directories/cli/internal/config.BuildSupabaseURL={{.Env.SUPABASE_URL}}
+      - -X github.com/awesome-directories/cli/internal/config.BuildSupabaseAnonKey={{.Env.SUPABASE_ANON_KEY}}
+    flags:
+      - -trimpath
+
+archives:
+  - id: default
+    formats:
+      - tar.gz
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- tolower .Os }}_
+      {{- if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    format_overrides:
+      - goos: windows
+        formats:
+          - zip
+
+changelog:
+  sort: asc
+  use: github
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^ci:"
+      - "^chore:"
+      - "merge conflict"
+      - Merge pull request
+      - Merge remote-tracking branch
+      - Merge branch
+  groups:
+    - title: Features
+      regexp: '^.*?feat(\([[:word:]]+\))??!?:.+$'
+      order: 0
+    - title: "Bug fixes"
+      regexp: '^.*?fix(\([[:word:]]+\))??!?:.+$'
+      order: 1
+    - title: "Performance improvements"
+      regexp: '^.*?perf(\([[:word:]]+\))??!?:.+$'
+      order: 2
+    - title: Others
+      order: 999
+
+dist: .goreleaser-dist
+
+binary_signs:
+  - cmd: cosign
+    args:
+      - sign-blob
+      - --output-signature=${signature}
+      - --output-certificate=${certificate}
+      - ${artifact}
+      - --yes
+    certificate: '${artifact}_{{- tolower .Os }}_{{- if eq .Arch "386" }}i386{{- else }}{{ .Arch }}{{ end }}{{- if .Arm }}v{{ .Arm }}{{ end }}.pem'
+    signature: '${artifact}_{{- tolower .Os }}_{{- if eq .Arch "386" }}i386{{- else }}{{ .Arch }}{{ end }}{{- if .Arm }}v{{ .Arm }}{{ end }}.sig'
+    output: true
+
+sboms:
+  - id: archive
+    artifacts: archive
+    documents:
+      - '${artifact}_{{- tolower .Os }}_{{- if eq .Arch "386" }}i386{{- else }}{{ .Arch }}{{ end }}{{- if .Arm }}v{{ .Arm }}{{ end }}_sbom.spdx.json'
+  - id: source
+    artifacts: source
+    documents:
+      - '${artifact}_{{- tolower .Os }}_{{- if eq .Arch "386" }}i386{{- else }}{{ .Arch }}{{ end }}{{- if .Arm }}v{{ .Arm }}{{ end }}_src_sbom.spdx.json'
+
+release:
+  draft: false
+  prerelease: auto
+  header: |
+    ## What's Changed
+
+    This release includes the following changes:
+  footer: |
+    ## Installation
+
+    ### Homebrew (macOS/Linux)
+    ```bash
+    brew tap awesome-directories/tap
+    brew install awesome-directories
+    ```
+
+    ### Go Install
+    ```bash
+    go install github.com/awesome-directories/cli/cmd/awesome-directories@{{ .Tag }}
+    ```
+
+    ### Manual Download
+    Download the appropriate binary for your platform from the assets below.
+
+    **Full Changelog**: https://github.com/awesome-directories/cli/compare/{{ .PreviousTag }}...{{ .Tag }}
+
+checksum:
+  name_template: checksums.txt
+  algorithm: sha256
+
+homebrew_casks:
+  - name: awesome-directories
+    binaries:
+      - awesome-directories
+    completions:
+      bash: completions/awesome-directories.bash
+      zsh: completions/awesome-directories.zsh
+      fish: completions/awesome-directories.fish
+    repository:
+      owner: awesome-directories
+      name: homebrew-tap
+    directory: Casks
+    homepage: "https://awesome-directories.com"
+    description: "CLI tool for awesome-directories.com - Discover directories for your SaaS"
+    commit_msg_template: "Brew cask update for {{ .ProjectName }} version {{ .Tag }}"
+    hooks:
+      post:
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/awesome-directories"]
+          end
