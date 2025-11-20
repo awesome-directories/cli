@@ -100,7 +100,10 @@ jobs:
       - name: Setup Cosign CLI
         uses: sigstore/cosign-installer@v3
       - name: Install syft
-        run: curl -sSfL https://get.anchore.io/syft | sudo sh -s -- -b /usr/local/bin
+        run: |
+          wget https://github.com/anchore/syft/releases/download/v1.38.0/syft_1.38.0_linux_amd64.tar.gz
+          tar -xzf syft_1.38.0_linux_amd64.tar.gz syft
+          sudo mv syft /usr/local/bin/
       - name: Install GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:
