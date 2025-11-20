@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/awesome-directories/cli/compare/v1.0.4...v1.0.5) (2025-11-20)
+
+
+### Bug Fixes
+
+* remove completions ([938df14](https://github.com/awesome-directories/cli/commit/938df1439412db8d5cb8e4d0d6cffd09ffb3edab))
+
 ## [1.0.4](https://github.com/awesome-directories/cli/compare/v1.0.3...v1.0.4) (2025-11-20)
 
 ### Bug Fixes
