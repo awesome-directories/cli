@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/awesome-directories/cli/compare/v1.0.5...v1.0.6) (2025-11-20)
+
+
+### Bug Fixes
+
+* **CI:** install hardcoded syft from github ([2042576](https://github.com/awesome-directories/cli/commit/20425767a55b90a1eeca1bf3c22111407ec6810d))
+
 ## [1.0.5](https://github.com/awesome-directories/cli/compare/v1.0.4...v1.0.5) (2025-11-20)
 
 
